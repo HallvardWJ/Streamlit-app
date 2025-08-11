@@ -36,7 +36,7 @@ st.title("Analyse av Fordelsdata fra Snowflake")
 
 #fordelsdata = get_data(query)
 
-csv_path = "/Users/hallvard.johnsen@schibsted.no/Documents/fordelsdata.csv"  # Endre stien hvis filen ligger et annet sted
+csv_path = "fordelsdata.csv"  # Endre stien hvis filen ligger et annet sted
 fordelsdata = pd.read_csv(csv_path)
 
 # Hent data automatisk hvis det ikke finnes i session_state
