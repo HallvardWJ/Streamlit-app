@@ -74,21 +74,25 @@ if "fordelsdata" in st.session_state:
         st.warning("❗ Kolonnen 'PRODUCT_TAG' finnes ikke i datasettet.")
 
     st.subheader("📊 Antall av hver SECTION_TITLE per PRODUCT_TAG")
-    if "PRODUCT_TAG" in fordelsdata.columns and "SECTION_TITLE" in fordelsdata.columns:
-        pivot = pd.pivot_table(
-            fordelsdata, 
-            index="SECTION_TITLE", 
-            columns="PRODUCT_TAG", 
-            values="ARTICLE_TEXT_ALL", 
-            aggfunc="count",
-            fill_value=0
-        )
 
-  # Flytt index (SECTION_TITLE) til en vanlig kolonne, hvis ønsket:
+if "PRODUCT_TAG" in fordelsdata.columns and "SECTION_TITLE" in fordelsdata.columns:
+    # Lag pivot-tabell
+    pivot = pd.pivot_table(
+        fordelsdata, 
+        index="SECTION_TITLE", 
+        columns="PRODUCT_TAG", 
+        values="ARTICLE_TEXT_ALL", 
+        aggfunc="count",
+        fill_value=0
+    )
+
+    # Flytt index til kolonne (slik at kolonneheaderne vises riktig)
     pivot_reset = pivot.reset_index()
 
-    st.dataframe(pivot)
-  else:
+    # Vis tabell
+    st.dataframe(pivot_reset)
+
+else:
     st.warning("❗ Kolonnene 'PRODUCT_TAG' og/eller 'SECTION_TITLE' finnes ikke i datasettet.")
 
     # Velg product_tag og vis antall artikler per SECTION_TITLE for valgt tag
