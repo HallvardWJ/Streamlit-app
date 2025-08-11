@@ -5,34 +5,40 @@ import snowflake.connector
 import matplotlib.pyplot as plt
 
 # --- Funksjon for å hente data ---
-def get_data(call):
-    snowflakecon = snowflake.connector.connect(
-        user="ABO_SERVICE_USER",
-        password='!7wHQT9VD0nF^wzSdgHv20sK',
-        account='schibsted.eu-west-1',
-        warehouse='shared_wh_medium',
-        database='',
-        schema='HALJOHNS',
-        role='SUBSCRIPTION_NORWAY_RED'
+#def get_data(call):
+#    snowflakecon = snowflake.connector.connect(
+#        user="ABO_SERVICE_USER",
+#        password='!7wHQT9VD0nF^wzSdgHv20sK',
+#        account='schibsted.eu-west-1',
+#        warehouse='shared_wh_medium',
+#        database='',
+#        schema='HALJOHNS',
+#        role='SUBSCRIPTION_NORWAY_RED'
     )
-    cursor = snowflakecon.cursor()
-    result = cursor.execute(call).fetchall()
-    hdrs = pd.DataFrame(cursor.description)
-    df_ready = pd.DataFrame.from_records(result)
-    df_ready.columns = hdrs['name']
-    cursor.close()
-    snowflakecon.close()
-    return df_ready
+#    cursor = snowflakecon.cursor()
+#    result = cursor.execute(call).fetchall()
+#    hdrs = pd.DataFrame(cursor.description)
+#    df_ready = pd.DataFrame.from_records(result)
+#    df_ready.columns = hdrs['name']
+#    cursor.close()
+#    snowflakecon.close()
+#    return df_ready
 
 # --- Streamlit starter her ---
 st.title("Analyse av Fordelsdata fra Snowflake")
 
-query = """
-select * from subs_sandbox.haljohns.fordel 
-where object_id not like ('%preview%') 
-and object_id not like ('%benefit%')
-and product_tag in ('sabenefits', 'btbenefits', 'apbenefits')
-"""
+#query = """
+#select * from subs_sandbox.haljohns.fordel 
+#where object_id not like ('%preview%') 
+#and object_id not like ('%benefit%')
+#and product_tag in ('sabenefits', 'btbenefits', 'apbenefits')
+#"""
+
+#fordelsdata = get_data(query)
+
+csv_path = "fordelsdata.csv"  # Endre stien hvis filen ligger et annet sted
+fordelsdata = pd.read_csv(csv_path)
+
 
 # Hent data automatisk hvis det ikke finnes i session_state
 if "fordelsdata" not in st.session_state:
