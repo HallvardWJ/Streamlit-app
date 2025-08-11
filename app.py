@@ -39,9 +39,10 @@ st.title("Analyse av Fordelsdata fra Snowflake")
 csv_path = "fordelsdata.csv"  # Endre stien hvis filen ligger et annet sted
 fordelsdata = pd.read_csv(csv_path)
 
+
 # Hent data automatisk hvis det ikke finnes i session_state
 if "fordelsdata" not in st.session_state:
-  #  fordelsdata = get_data(query)
+#   fordelsdata = get_data(query)
     fordelsdata = fordelsdata.dropna(subset=[
         "ARTICLE_TEXT_ALL", 
         "SECTION_PARENT_TITLE", 
@@ -74,26 +75,18 @@ if "fordelsdata" in st.session_state:
         st.warning("❗ Kolonnen 'PRODUCT_TAG' finnes ikke i datasettet.")
 
     st.subheader("📊 Antall av hver SECTION_TITLE per PRODUCT_TAG")
-
-if "PRODUCT_TAG" in fordelsdata.columns and "SECTION_TITLE" in fordelsdata.columns:
-    # Lag pivot-tabell
-    pivot = pd.pivot_table(
-        fordelsdata, 
-        index="SECTION_TITLE", 
-        columns="PRODUCT_TAG", 
-        values="ARTICLE_TEXT_ALL", 
-        aggfunc="count",
-        fill_value=0
-    )
-
-    # Flytt index til kolonne (slik at kolonneheaderne vises riktig)
-    pivot_reset = pivot.reset_index()
-
-    # Vis tabell
-    st.dataframe(pivot_reset)
-
-else:
-    st.warning("❗ Kolonnene 'PRODUCT_TAG' og/eller 'SECTION_TITLE' finnes ikke i datasettet.")
+    if "PRODUCT_TAG" in fordelsdata.columns and "SECTION_TITLE" in fordelsdata.columns:
+        pivot = pd.pivot_table(
+            fordelsdata, 
+            index="SECTION_TITLE", 
+            columns="PRODUCT_TAG", 
+            values="ARTICLE_TEXT_ALL", 
+            aggfunc="count",
+            fill_value=0
+        )
+        st.dataframe(pivot)
+    else:
+        st.warning("❗ Kolonnene 'PRODUCT_TAG' og/eller 'SECTION_TITLE' finnes ikke i datasettet.")
 
     # Velg product_tag og vis antall artikler per SECTION_TITLE for valgt tag
     if "PRODUCT_TAG" in fordelsdata.columns and "SECTION_TITLE" in fordelsdata.columns:
