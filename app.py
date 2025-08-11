@@ -42,7 +42,7 @@ fordelsdata = pd.read_csv(csv_path)
 
 # Hent data automatisk hvis det ikke finnes i session_state
 if "fordelsdata" not in st.session_state:
-    fordelsdata = get_data(query)
+  #  fordelsdata = get_data(query)
     fordelsdata = fordelsdata.dropna(subset=[
         "ARTICLE_TEXT_ALL", 
         "SECTION_PARENT_TITLE", 
