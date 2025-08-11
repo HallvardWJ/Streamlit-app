@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 #        database='',
 #        schema='HALJOHNS',
 #        role='SUBSCRIPTION_NORWAY_RED'
-    )
+#    )
 #    cursor = snowflakecon.cursor()
 #    result = cursor.execute(call).fetchall()
 #    hdrs = pd.DataFrame(cursor.description)
