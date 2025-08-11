@@ -88,8 +88,8 @@ if "fordelsdata" in st.session_state:
     pivot_reset = pivot.reset_index()
 
     st.dataframe(pivot)
-    else:
-        st.warning("❗ Kolonnene 'PRODUCT_TAG' og/eller 'SECTION_TITLE' finnes ikke i datasettet.")
+  else:
+    st.warning("❗ Kolonnene 'PRODUCT_TAG' og/eller 'SECTION_TITLE' finnes ikke i datasettet.")
 
     # Velg product_tag og vis antall artikler per SECTION_TITLE for valgt tag
     if "PRODUCT_TAG" in fordelsdata.columns and "SECTION_TITLE" in fordelsdata.columns:
