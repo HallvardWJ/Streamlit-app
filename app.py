@@ -83,7 +83,11 @@ if "fordelsdata" in st.session_state:
             aggfunc="count",
             fill_value=0
         )
-        st.dataframe(pivot)
+
+  # Flytt index (SECTION_TITLE) til en vanlig kolonne, hvis ønsket:
+    pivot_reset = pivot.reset_index()
+
+    st.dataframe(pivot)
     else:
         st.warning("❗ Kolonnene 'PRODUCT_TAG' og/eller 'SECTION_TITLE' finnes ikke i datasettet.")
 
